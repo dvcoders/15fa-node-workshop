@@ -59,4 +59,21 @@ module.exports = function(app) {
       message: "Created student (" + studentId +")"
     });
   });
+
+  app.delete('/', function(req, res) {
+    var body = req.body;
+
+    var studentId = body['studentId'];
+    if (!(studentId in studentDatabase)) {
+      res.status(404).json({
+        code: 404,
+        message: "Not found. Student is not found in the database"
+      });
+      return;
+    }
+
+    res.json({
+      message: "Successfully delete student (" + studentId + ")"
+    });
+  });
 };
