@@ -72,6 +72,8 @@ module.exports = function(app) {
       return;
     }
 
+    delete studentDatabase[studentId];
+
     res.json({
       message: "Successfully delete student (" + studentId + ")"
     });
