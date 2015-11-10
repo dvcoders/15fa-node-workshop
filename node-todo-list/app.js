@@ -25,19 +25,28 @@ app.get('/todo.js', function(req,res) {
 });
 
 app.get('/items', function(req, res) {
-        console.log(items);
     res.send(items);
 });
 
 app.post('/item', function(req, res) {
-    console.log(req.body.newitem);
     var item = {
         Id: id++,
         text: req.body.newitem,
         completed: false
     }
     items.push(item);
-    res.end();
+    res.send(item);
+});
+
+app.put('/item', function(req, res) {
+    items.forEach(function(item) {
+        if (item.Id == req.body.Id) {
+            Object.keys(req.body).forEach(function(key) {
+                item[key] = req.body[key];
+            });
+        }
+    });
+    console.log(items);
 });
 
 app.listen(8000);

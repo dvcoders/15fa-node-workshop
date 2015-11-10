@@ -1,3 +1,5 @@
+// TODO make text of items editable, delete items, 
+// toggle showing completed/not completed items
 $(document).ready(function() {
     addItems();
     
@@ -5,13 +7,27 @@ $(document).ready(function() {
     $('#item-form').on('submit', function(e) {
         e.preventDefault();
         $.ajax({
-            url: $(this).attr("action"),
+            url: $(this).attr("action"), // /items
             type: 'POST',
-            data: $(this).serialize()
-        });
-        addItems();
+            data: $(this).serialize(), // form data
+        }).done(addItem); // add item after data sent to server
     });
-});
+    
+    // toggle completed / not completed onclick
+    $('#todolist').on('click', 'li', function() {
+        var data = {
+            Id: $(this).attr('id'),
+            completed: !($(this).hasClass('completed'))
+        }
+        $.ajax({
+            url: '/item',
+            type: 'PUT',
+            data: JSON.stringify(data),
+            contentType: 'application/json'
+        }).done($(this).toggleClass('completed')); 
+        // toggle class after data is sent to the server
+    });
+});  
 
 function addItems() {
     $('#todolist').empty();
