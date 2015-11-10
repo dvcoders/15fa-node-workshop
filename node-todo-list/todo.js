@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    console.log("success");
     $.get("/items", function(data) {
         data.forEach(addItem);
     }); 
