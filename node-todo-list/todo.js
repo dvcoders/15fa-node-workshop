@@ -29,7 +29,7 @@ $(document).ready(function () {
     var item = $(this).parent()
     var text = item.find('.edit-input').val()
     var data = {
-      Id: item.attr('id'),
+      id: item.attr('id'),
       text: text
     }
     $.ajax({
@@ -42,9 +42,11 @@ $(document).ready(function () {
   // toggle completed / not completed onclick
   $('#todolist').on('click', 'li .completed-btn', function () {
     var data = {
-      Id: $(this).parent().attr('id'),
+      id: $(this).parent().attr('id'),
       completed: !($(this).parent().hasClass('completed'))
     }
+    console.log(data)
+    console.log(!$(this).parent().hasClass('completed'))
     $.ajax({
       url: 'http://localhost:3000/item',
       type: 'PUT',
@@ -54,7 +56,7 @@ $(document).ready(function () {
   // toggle class after data is sent to the server
   })
   $('#todolist').on('click', 'li .delete-btn', function () {
-    var data = {Id: $(this).parent().attr('id')}
+    var data = {d: $(this).parent().attr('id')}
     $.ajax({
       url: 'http://localhost:3000/item',
       type: 'DELETE',
@@ -74,7 +76,9 @@ function getAllItems () {
 function addItem (item) {
   console.log(item)
   var html = '<li'
-  if (item.completed) html += ' class="completed"'
+  if (item.completed === true) {
+    html += ' class="completed"'
+  }
   html += ' id="' + item.id + '">' +
     '<div class="item-text">' + item.title + '</div>' +
     '<button class="edit-btn">✎</button>' +

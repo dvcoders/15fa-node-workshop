@@ -35,8 +35,12 @@ function todoAPI (app) {
     if (!body.title) return sendResponse(res, 400, 'No title included')
     if (!body.completed) return sendResponse(res, 400, 'No completion boolean included')
 
+    var keysArray = []
+    for (var key in items) {
+      keysArray.push(key)
+    }
     var newItem = {
-      'id': (items.length + 1),
+      'id': (keysArray.length + 1),
       'title': body.title,
       'completed': body.completed
     }
@@ -57,20 +61,20 @@ function todoAPI (app) {
     if (body.completed) items[body.id]['completed'] = body.completed
 
     sendResponse (res, 200, JSON.stringify(items[body.id]))
-  })
+    })
 
   app.delete('/item', function (req, res) {
     var body = req.body
     
     if (!body.id) return sendResponse(res, 400, 'No id included')
-    if (!(body.id in items)) return sendResponse(res, 404, 'Item not found')
-    
-    var copyItem = items[body.id]
+      if (!(body.id in items)) return sendResponse(res, 404, 'Item not found')
 
-    delete items[body.id]
+        var copyItem = items[body.id]
 
-    sendResponse(res, 200, JSON.stringify(copyItem))
-  })
+      delete items[body.id]
+
+      sendResponse(res, 200, JSON.stringify(copyItem))
+    })
 
   function sendResponse (res, statusCode, message) {
     res.status(statusCode).json({
