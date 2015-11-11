@@ -56,7 +56,7 @@ $(document).ready(function () {
   // toggle class after data is sent to the server
   })
   $('#todolist').on('click', 'li .delete-btn', function () {
-    var data = {d: $(this).parent().attr('id')}
+    var data = {id: $(this).parent().attr('id')}
     $.ajax({
       url: 'http://localhost:3000/item',
       type: 'DELETE',

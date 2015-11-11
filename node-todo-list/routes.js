@@ -67,7 +67,7 @@ function todoAPI (app) {
     var body = req.body
     
     if (!body.id) return sendResponse(res, 400, 'No id included')
-      if (!(body.id in items)) return sendResponse(res, 404, 'Item not found')
+    if (!(body.id in items)) return sendResponse(res, 404, 'Item not found')
 
         var copyItem = items[body.id]
 
