@@ -1,7 +1,7 @@
 {
-  "name": "dvcoders",
+  "name": "Todo-List",
   "version": "1.0.0",
-  "description": "dvcoders workshop",
+  "description": "Linking client-side todo-list to Node server",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
