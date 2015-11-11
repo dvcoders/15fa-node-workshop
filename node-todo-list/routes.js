@@ -6,7 +6,6 @@ function todoAPI (app) {
   var items = []
 
   app.get('/all', function (req, res) {
-    // Send all items
     res.send(items)
   })
 
@@ -26,11 +25,11 @@ function todoAPI (app) {
   })
 
   app.put('/item/:id?', function (req, res) {
-    // Search for existing item with ID and update all values
-    // Return error is id is not matching
     matchId(req, res)
   })
 
+  // Helper functions
+  //
   function matchId (req, res) {
     var found = false
     var searchId = req.params.id ? Number(req.params.id) : Number(req.query.id)
