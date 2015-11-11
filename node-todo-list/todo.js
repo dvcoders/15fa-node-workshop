@@ -10,7 +10,7 @@ $(document).ready(function () {
       completed: false
     }
     $.ajax({
-      url: $(this).attr('action'), // /items
+      url: 'http://localhost:3000/item', // /items
       type: 'POST',
       data: data
     }).done(addItem) // add item after data sent to server
@@ -33,7 +33,7 @@ $(document).ready(function () {
       text: text
     }
     $.ajax({
-      url: '/item',
+      url: 'http://localhost:3000/item',
       type: 'PUT',
       data: JSON.stringify(data),
       contentType: 'application/json'
@@ -46,7 +46,7 @@ $(document).ready(function () {
       completed: !($(this).parent().hasClass('completed'))
     }
     $.ajax({
-      url: '/item',
+      url: 'http://localhost:3000/item',
       type: 'PUT',
       data: JSON.stringify(data),
       contentType: 'application/json'
@@ -56,7 +56,7 @@ $(document).ready(function () {
   $('#todolist').on('click', 'li .delete-btn', function () {
     var data = {Id: $(this).parent().attr('id')}
     $.ajax({
-      url: '/item',
+      url: 'http://localhost:3000/item',
       type: 'DELETE',
       data: JSON.stringify(data),
       contentType: 'application/json'
@@ -64,9 +64,10 @@ $(document).ready(function () {
     // remove element after data is sent to the server
   })
 })
+
 function getAllItems () {
-  $.get('/all', function (data) {
-    data.forEach(addItem)
+  $.get('http://localhost:3000/all', function (data) {
+    data.items.forEach(addItem)
   })
 }
 

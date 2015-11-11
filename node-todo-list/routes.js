@@ -24,7 +24,9 @@ function todoAPI (app) {
       itemArray.push(items[key])
     }
 
-    res.send(itemArray)
+    res.send({
+      'items' : itemArray
+    })
   })
 
   app.post('/item', function (req, res) {
