@@ -38,6 +38,14 @@ app.post('/item', function(req, res) {
     res.send(item);
 });
 
+app.delete('/item', function(req, res) {
+    items.forEach(function(item, ind) {
+        if (item.Id == req.body.Id)
+            items.splice(ind, 1);
+    });
+    console.log(items);
+});
+
 app.put('/item', function(req, res) {
     items.forEach(function(item) {
         if (item.Id == req.body.Id) {

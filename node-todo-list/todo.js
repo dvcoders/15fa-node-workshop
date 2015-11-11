@@ -7,10 +7,19 @@ $(document).ready(function() {
     $('#item-form').on('submit', function(e) {
         e.preventDefault();
         $.ajax({
-            url: $(this).attr("action"), // /items
+            url: $(this).attr('action'), // /items
             type: 'POST',
             data: $(this).serialize(), // form data
         }).done(addItem); // add item after data sent to server
+    });
+    
+    // when the edit button is clicked, replace with input field
+    $('#todolist').on('click', 'li .edit-btn', function() {
+        var item = $(this).parent();
+        var text = item.find('.item-text').text();
+        item.empty();
+        item.append('<input id="edit-input" value="' + text +'" />');
+        item.append('<button class="save-btn">Save</button>');
     });
     
     // toggle completed / not completed onclick
@@ -18,7 +27,7 @@ $(document).ready(function() {
         var data = {
             Id: $(this).parent().attr('id'),
             completed: !($(this).parent().hasClass('completed'))
-        }
+        };
         $.ajax({
             url: '/item',
             type: 'PUT',
@@ -27,6 +36,18 @@ $(document).ready(function() {
         }).done($(this).parent().toggleClass('completed')); 
         // toggle class after data is sent to the server
     });
+    
+    $('#todolist').on('click', 'li .delete-btn', function() {
+        var data = {Id: $(this).parent().attr('id')};
+        $.ajax({
+            url: '/item',
+            type: 'DELETE',
+            data: JSON.stringify(data),
+            contentType: 'application/json'
+        }).done($(this).parent().remove());
+        // remove element after data is sent to the server
+    });
+        
 });  
 
 function addItems() {
@@ -40,7 +61,7 @@ function addItem(item) {
     if (item.completed)
         html += ' class="completed"';
     html += ' id="' + item.Id + '">'
-         + item.text
+         + '<div class="item-text">' + item.text + '</div>'
          + '<button class="edit-btn">✎</button>'
          + '<button class="completed-btn">✔</button>'
          + '<button class="delete-btn">✗</button>'

@@ -41,6 +41,5 @@ form {
 }
 
 #todolist .completed {
-  width: 100px;
   background: green;
 }
