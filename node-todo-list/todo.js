@@ -1,5 +1,4 @@
-// TODO make text of items editable, delete items, 
-// toggle showing completed/not completed items
+// TODO clean up code, toggle completed/not completed, show buttons only on hover
 $(document).ready(function() {
   addItems();
   
