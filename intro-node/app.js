@@ -17,4 +17,5 @@ require('./routes')(app);
 // Create server
 app.listen(port, function(){
   console.log('Listening on port ', port);
+  console.log('To kill the server press \"ctrl+c\" on your keyboard');
 });

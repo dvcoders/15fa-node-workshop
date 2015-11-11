@@ -1,60 +1,21 @@
-// for testing todo.js
+var express = require('express')
+var cors = require('cors')
+var app = express()
+var bodyParser = require('body-parser')
 
-var express = require('express');
-var bodyParser = require('body-parser');
-var app = express();
+// Set Port
+var port = process.env.PORT || 3000
 
-var items = [{Id:0, text:'one', completed:true}, {Id: 1, text:'two', completed:false}];
-// format: {ID, text, completed}
-var id = 2;
+// Apply Cors middleware
+app.use(cors())
 
-// middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
 
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
-});
+// Require all routes in /routes
+// These are the endpoints of the API we can call
+require('./routes')(app)
 
-app.get('/style.css', function(req, res) {
-    res.sendFile(__dirname + '/style.css');
-});
-
-app.get('/todo.js', function(req,res) {
-    res.sendFile(__dirname + '/todo.js');
-});
-
-app.get('/items', function(req, res) {
-    res.send(items);
-});
-
-app.post('/item', function(req, res) {
-    var item = {
-        Id: id++,
-        text: req.body.newitem,
-        completed: false
-    }
-    items.push(item);
-    res.send(item);
-});
-
-app.delete('/item', function(req, res) {
-    items.forEach(function(item, ind) {
-        if (item.Id == req.body.Id)
-            items.splice(ind, 1);
-    });
-    res.end();
-});
-
-app.put('/item', function(req, res) {
-    items.forEach(function(item) {
-        if (item.Id == req.body.Id) {
-            Object.keys(req.body).forEach(function(key) {
-                item[key] = req.body[key];
-            });
-        }
-    });
-    res.end();
-});
-
-app.listen(8000);
+// Create server
+app.listen(port, function () {
+  console.log('Listening on port ', port)
+})
