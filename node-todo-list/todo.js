@@ -1,7 +1,7 @@
 // TODO clean up code, toggle completed/not completed, show buttons only on hover
 /* globals $ */
 $(document).ready(function () {
-  addItems()
+  getAllItems()
   // to prevent a page redirect
   $('#item-form').on('submit', function (e) {
     e.preventDefault()
@@ -59,8 +59,8 @@ $(document).ready(function () {
     // remove element after data is sent to the server
   })
 })
-function addItems () {
-  $.get('/items', function (data) {
+function getAllItems () {
+  $.get('http://localhost:3000/all', function (data) {
     data.forEach(addItem)
   })
 }
