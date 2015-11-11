@@ -2,7 +2,7 @@ function todoAPI (app) {
   // DATA
   // Todo Item Data Scheme
   // {id:Number, title: String, completed: Bool}
-  var items = [{Id: 0, text: 'one', completed: true}, {Id: 1, text: 'two', completed: false}]
+  var items = []
 
   app.get('/items', function (req, res) {
     // Send all items
