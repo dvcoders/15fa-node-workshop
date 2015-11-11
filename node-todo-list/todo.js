@@ -14,23 +14,22 @@ $(document).ready(function() {
     });
     
     // toggle completed / not completed onclick
-    $('#todolist').on('click', 'li', function() {
+    $('#todolist').on('click', 'li .completed-btn', function() {
         var data = {
-            Id: $(this).attr('id'),
-            completed: !($(this).hasClass('completed'))
+            Id: $(this).parent().attr('id'),
+            completed: !($(this).parent().hasClass('completed'))
         }
         $.ajax({
             url: '/item',
             type: 'PUT',
             data: JSON.stringify(data),
             contentType: 'application/json'
-        }).done($(this).toggleClass('completed')); 
+        }).done($(this).parent().toggleClass('completed')); 
         // toggle class after data is sent to the server
     });
 });  
 
 function addItems() {
-    $('#todolist').empty();
     $.get('/items', function(data) {
         data.forEach(addItem);
     });
@@ -39,8 +38,12 @@ function addItems() {
 function addItem(item) {
     var html = '<li';
     if (item.completed)
-        html += ' class="completed" ';
+        html += ' class="completed"';
     html += ' id="' + item.Id + '">'
-         + item.text + '</li>';
+         + item.text
+         + '<button class="edit-btn">✎</button>'
+         + '<button class="completed-btn">✔</button>'
+         + '<button class="delete-btn">✗</button>'
+         + '</li>';
     $("#todolist").append(html);
 }
