@@ -43,7 +43,7 @@ app.delete('/item', function(req, res) {
         if (item.Id == req.body.Id)
             items.splice(ind, 1);
     });
-    console.log(items);
+    res.end();
 });
 
 app.put('/item', function(req, res) {
@@ -54,7 +54,7 @@ app.put('/item', function(req, res) {
             });
         }
     });
-    console.log(items);
+    res.end();
 });
 
 app.listen(8000);

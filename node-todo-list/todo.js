@@ -18,8 +18,24 @@ $(document).ready(function() {
     var item = $(this).parent();
     var text = item.find('.item-text').text();
     item.empty();
-    item.append('<input id="edit-input" value="' + text +'" />');
+    item.append('<input class="edit-input" value="' + text +'" />');
     item.append('<button class="save-btn">Save</button>');
+  });
+  
+  $('#todolist').on('click', 'li .save-btn', function() {
+    console.log('1');
+    var item = $(this).parent();
+    var text = item.find('.edit-input').val();
+    var data = {
+      Id: item.attr('id'),
+      text: text
+    }
+    $.ajax({
+      url: '/item',
+      type: 'PUT',
+      data: JSON.stringify(data),
+      contentType: 'application/json'
+    }).done(setInsideHtml(item, text));
   });
   
   // toggle completed / not completed onclick
@@ -67,4 +83,14 @@ function addItem(item) {
   	+ '<button class="delete-btn">✗</button>'
   	+ '</li>';
   $("#todolist").append(html);
+}
+
+function setInsideHtml(item, text) {
+  console.log('2');
+  item.empty();
+  var html = '<div class="item-text">' + text + '</div>'
+    + '<button class="edit-btn">✎</button>'
+    + '<button class="completed-btn">✔</button>'
+    + '<button class="delete-btn">✗</button>';
+  item.append(html);
 }
