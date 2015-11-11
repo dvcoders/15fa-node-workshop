@@ -60,7 +60,7 @@ $(document).ready(function () {
   })
 })
 function getAllItems () {
-  $.get('http://localhost:3000/all', function (data) {
+  $.get('/all', function (data) {
     data.forEach(addItem)
   })
 }

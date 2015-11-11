@@ -10,6 +10,7 @@ var port = process.env.PORT || 3000
 app.use(cors())
 
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // Require all routes in /routes
 // These are the endpoints of the API we can call

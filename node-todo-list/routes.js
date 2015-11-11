@@ -1,10 +1,22 @@
 function todoAPI (app) {
+  // Serving files to http://localhost:PORT
+  app.get('/', function (req, res) {
+    res.sendFile(__dirname + '/index.html')
+  })
+
+  app.get('/style.css', function (req, res) {
+    res.sendFile(__dirname + '/style.css')
+  })
+
+  app.get('/todo.js', function (req, res) {
+    res.sendFile(__dirname + '/todo.js')
+  })
+
   // items is an Array of Objects
   // Each object will have the following attributes (called keys) and values
 
   // {id:Number, title: String, completed: Bool}
   var items = []
-
   app.get('/all', function (req, res) {
     res.send(items)
   })
