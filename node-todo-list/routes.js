@@ -23,17 +23,18 @@ function todoAPI (app) {
 
   app.post('/item', function (req, res) {
     var body = req.body
-    if (!body.id) return sendResponse(res, 400, 'No ID included')
+
     if (!body.title) return sendResponse(res, 400, 'No title included')
     if (body.completed === '') return sendResponse(res, 400, 'No completion boolean included')
 
     var newItem = {
-      'id': body.id,
+      'id': (items.length + 1),
       'title': body.title,
       'completed': body.completed
     }
     items.push(newItem)
-    res.send('Successfully posted: ' + JSON.stringify(newItem))
+    console.log('Successfully posted: ' + JSON.stringify(newItem))
+    res.send(newItem)
   })
 
   app.put('/item/:id?', function (req, res) {

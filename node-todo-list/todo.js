@@ -5,11 +5,16 @@ $(document).ready(function () {
   // to prevent a page redirect
   $('#item-form').on('submit', function (e) {
     e.preventDefault()
+    var data = {
+      title: $('#newitem').val(),
+      completed: false
+    }
     $.ajax({
       url: $(this).attr('action'), // /items
       type: 'POST',
-      data: $(this).serialize() // form data
+      data: data
     }).done(addItem) // add item after data sent to server
+    $('#newitem').val('')
   })
   // when the edit button is clicked, replace with input field
   $('#todolist').on('click', 'li .edit-btn', function () {
@@ -66,10 +71,11 @@ function getAllItems () {
 }
 
 function addItem (item) {
+  console.log(item)
   var html = '<li'
   if (item.completed) html += ' class="completed"'
-  html += ' id="' + item.Id + '">' +
-    '<div class="item-text">' + item.text + '</div>' +
+  html += ' id="' + item.id + '">' +
+    '<div class="item-text">' + item.title + '</div>' +
     '<button class="edit-btn">✎</button>' +
     '<button class="completed-btn">✔</button>' +
     '<button class="delete-btn">✗</button>' +
