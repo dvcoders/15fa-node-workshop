@@ -4,25 +4,13 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 
+// Todo Item Data Scheme
+// {id:Number, title: String, completed: Bool}
 var items = [{Id:0, text:'one', completed:true}, {Id: 1, text:'two', completed:false}];
-// format: {ID, text, completed}
-var id = 2;
 
-// middleware
+// Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
-});
-
-app.get('/style.css', function(req, res) {
-    res.sendFile(__dirname + '/style.css');
-});
-
-app.get('/todo.js', function(req,res) {
-    res.sendFile(__dirname + '/todo.js');
-});
 
 app.get('/items', function(req, res) {
     res.send(items);
@@ -39,6 +27,9 @@ app.post('/item', function(req, res) {
 });
 
 app.put('/item', function(req, res) {
+    // Iterate over all of the items
+    // If there is a matching item copy replce data
+    // Elseif there is no matching id, return error
     items.forEach(function(item) {
         if (item.Id == req.body.Id) {
             Object.keys(req.body).forEach(function(key) {
