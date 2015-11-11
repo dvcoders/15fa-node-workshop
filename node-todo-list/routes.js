@@ -59,7 +59,7 @@ function todoAPI (app) {
     // ONLY apply changes to what is provided in the body, otherwise nothing changes
     if (body.title) items[body.id]['title'] = body.title
     if (body.completed) items[body.id]['completed'] = body.completed
-
+    console.log('Successfully updated id #' + body.id + ' ')
     sendResponse(res, 200, JSON.stringify(items[body.id]))
   })
 

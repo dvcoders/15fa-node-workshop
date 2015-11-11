@@ -9,6 +9,7 @@ $(document).ready(function () {
       title: $('#newitem').val(),
       completed: false
     }
+    console.log('[Client] Sending item to server: ' + JSON.stringify(data))
     $.ajax({
       url: 'http://localhost:3000/item', // /items
       type: 'POST',
@@ -25,13 +26,13 @@ $(document).ready(function () {
     item.append('<button class="save-btn">Save</button>')
   })
   $('#todolist').on('click', 'li .save-btn', function () {
-    console.log('1')
     var item = $(this).parent()
     var text = item.find('.edit-input').val()
     var data = {
       id: item.attr('id'),
       text: text
     }
+    console.log('[PUT] Updating item title: ' + JSON.stringify(data))
     $.ajax({
       url: 'http://localhost:3000/item',
       type: 'PUT',
@@ -45,8 +46,7 @@ $(document).ready(function () {
       id: $(this).parent().attr('id'),
       completed: !($(this).parent().hasClass('completed'))
     }
-    console.log(data)
-    console.log(!$(this).parent().hasClass('completed'))
+    console.log('[PUT] Marking item as complted: ' + JSON.stringify(data))
     $.ajax({
       url: 'http://localhost:3000/item',
       type: 'PUT',
@@ -57,6 +57,7 @@ $(document).ready(function () {
   })
   $('#todolist').on('click', 'li .delete-btn', function () {
     var data = {id: $(this).parent().attr('id')}
+    console.log('[DELTE] Removing item from server: ' + JSON.stringify(data))
     $.ajax({
       url: 'http://localhost:3000/item',
       type: 'DELETE',
@@ -70,11 +71,12 @@ $(document).ready(function () {
 function getAllItems () {
   $.get('http://localhost:3000/all', function (data) {
     data.items.forEach(addItem)
+    console.log('[GET] Requesting all item data from server: ' + JSON.stringify(data))
   })
 }
 
 function addItem (item) {
-  console.log(item)
+  console.log('[Client] Adding new item to DOM')
   var html = '<li'
   if (item.completed === true) {
     html += ' class="completed"'
@@ -89,7 +91,6 @@ function addItem (item) {
 }
 
 function setInsideHtml (item, text) {
-  console.log('2')
   item.empty()
   var html = '<div class="item-text">' + text + '</div>' +
   '<button class="edit-btn">✎</button>' +
