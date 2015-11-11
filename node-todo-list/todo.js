@@ -30,7 +30,7 @@ $(document).ready(function () {
     var text = item.find('.edit-input').val()
     var data = {
       id: item.attr('id'),
-      text: text
+      title: text
     }
     console.log('[PUT] Updating item title: ' + JSON.stringify(data))
     $.ajax({
