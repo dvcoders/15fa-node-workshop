@@ -16,7 +16,7 @@ function todoAPI (app) {
   // Each object will have the following attributes (called keys) and values
 
   // {id:Number, title: String, completed: Bool}
-  var items = {} 
+  var items = new Map()
   app.get('/all', function (req, res) {
     var itemArray = []
     
