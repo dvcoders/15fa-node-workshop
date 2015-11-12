@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // Require all routes in /routes
 // These are the endpoints of the API we can call
-require('./routes')(app)
+require('./routes-todo')(app)
 
 // Create server
 app.listen(port, function () {
