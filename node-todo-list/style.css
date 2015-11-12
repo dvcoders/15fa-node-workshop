@@ -34,12 +34,6 @@ form {
   position: relative;
 }
 
-#todolist li:hover:after {
-  content: '✔';
-  position: absolute;
-  right: 5px;    
-}
-
 #todolist .completed {
   background: green;
 }
